@@ -16,7 +16,7 @@ public class TestSafari {
     @BeforeMethod
     public void setUp() throws InterruptedException {
         if (driver == null) {
-            System.out.println("\uD83D\uDE80 Iniciando navegador Safari");
+            System.out.println("Iniciando navegador Safari");
             driver = new SafariDriver();
             driver.manage().window().maximize();
 
