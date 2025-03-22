@@ -1,29 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results total="4" passed="4" failed="0" skipped="0">
+<testng-results total="6" passed="6" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-03-22T15:59:02Z" name="Command line suite" finished-at="2025-03-22T15:59:12Z" duration-ms="9735">
+  <suite started-at="2025-03-22T22:40:10Z" name="Command line suite" finished-at="2025-03-22T22:40:38Z" duration-ms="28091">
     <groups>
     </groups>
-    <test started-at="2025-03-22T15:59:02Z" name="Command line test" finished-at="2025-03-22T15:59:12Z" duration-ms="9735">
+    <test started-at="2025-03-22T22:40:10Z" name="Command line test" finished-at="2025-03-22T22:40:38Z" duration-ms="28091">
       <class name="com.mycompany.simulacion.test.TestSafari">
-        <test-method signature="testIngreso()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@23941fb4]" started-at="2025-03-22T09:59:02Z" name="testIngreso" finished-at="2025-03-22T09:59:02Z" duration-ms="5" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@61832929]" started-at="2025-03-22T16:40:10Z" name="setUp" finished-at="2025-03-22T16:40:14Z" duration-ms="3858" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="testIngreso()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@61832929]" started-at="2025-03-22T16:40:14Z" name="testIngreso" finished-at="2025-03-22T16:40:14Z" duration-ms="16" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testIngreso -->
-        <test-method signature="testProducto()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@23941fb4]" started-at="2025-03-22T09:59:02Z" name="testProducto" finished-at="2025-03-22T09:59:04Z" depends-on-methods="com.mycompany.simulacion.test.TestSafari.testIngreso" duration-ms="2169" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@61832929]" started-at="2025-03-22T16:40:14Z" name="setUp" finished-at="2025-03-22T16:40:14Z" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="testProducto()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@61832929]" started-at="2025-03-22T16:40:14Z" name="testProducto" finished-at="2025-03-22T16:40:16Z" depends-on-methods="com.mycompany.simulacion.test.TestSafari.testIngreso" duration-ms="2184" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testProducto -->
-        <test-method signature="testAgregarAlCarrito()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@23941fb4]" started-at="2025-03-22T09:59:04Z" name="testAgregarAlCarrito" finished-at="2025-03-22T09:59:09Z" depends-on-methods="com.mycompany.simulacion.test.TestSafari.testProducto" duration-ms="5301" status="PASS">
+        <test-method signature="testAgregarAlCarrito()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@61832929]" started-at="2025-03-22T16:40:16Z" name="testAgregarAlCarrito" finished-at="2025-03-22T16:40:22Z" depends-on-methods="com.mycompany.simulacion.test.TestSafari.testProducto" duration-ms="5285" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testAgregarAlCarrito -->
-        <test-method signature="testCheckoutCampos()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@23941fb4]" started-at="2025-03-22T09:59:09Z" name="testCheckoutCampos" finished-at="2025-03-22T09:59:12Z" depends-on-methods="com.mycompany.simulacion.test.TestSafari.testAgregarAlCarrito" duration-ms="2255" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@61832929]" started-at="2025-03-22T16:40:16Z" name="setUp" finished-at="2025-03-22T16:40:16Z" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@61832929]" started-at="2025-03-22T16:40:22Z" name="setUp" finished-at="2025-03-22T16:40:22Z" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="testCheckoutCampos()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@61832929]" started-at="2025-03-22T16:40:22Z" name="testCheckoutCampos" finished-at="2025-03-22T16:40:24Z" depends-on-methods="com.mycompany.simulacion.test.TestSafari.testAgregarAlCarrito" duration-ms="2222" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testCheckoutCampos -->
-        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@23941fb4]" started-at="2025-03-22T09:59:12Z" name="tearDown" finished-at="2025-03-22T09:59:12Z" duration-ms="1" status="PASS">
+        <test-method signature="testCompletarCheckout()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@61832929]" started-at="2025-03-22T16:40:24Z" name="testCompletarCheckout" finished-at="2025-03-22T16:40:26Z" depends-on-methods="com.mycompany.simulacion.test.TestSafari.testCheckoutCampos" duration-ms="2170" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testCompletarCheckout -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@61832929]" started-at="2025-03-22T16:40:24Z" name="setUp" finished-at="2025-03-22T16:40:24Z" duration-ms="0" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method is-config="true" signature="setUp()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@61832929]" started-at="2025-03-22T16:40:26Z" name="setUp" finished-at="2025-03-22T16:40:26Z" duration-ms="1" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="testFinalizarCompra()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@61832929]" started-at="2025-03-22T16:40:26Z" name="testFinalizarCompra" finished-at="2025-03-22T16:40:28Z" depends-on-methods="com.mycompany.simulacion.test.TestSafari.testCompletarCheckout" duration-ms="2093" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testFinalizarCompra -->
+        <test-method is-config="true" signature="tearDown()[pri:0, instance:com.mycompany.simulacion.test.TestSafari@61832929]" started-at="2025-03-22T16:40:28Z" name="tearDown" finished-at="2025-03-22T16:40:38Z" duration-ms="10252" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- tearDown -->

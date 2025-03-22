@@ -8,52 +8,37 @@ import org.openqa.selenium.safari.SafariDriver;
 import org.testng.annotations.*;
 
 import static org.testng.Assert.assertTrue;
-import org.testng.TestNG;
 
 public class TestSafari {
 
     public static WebDriver driver;
 
-    public static void main(String[] args) {
-        try {
-            System.out.println("Iniciando pruebas");
-
-            // Inicializar Safari y hacer login una única vez para el inio de las pruebas
-            //se hace de esta manera para realizar prubas como un único usuario
+    @BeforeMethod
+    public void setUp() throws InterruptedException {
+        if (driver == null) {
+            System.out.println("\uD83D\uDE80 Iniciando navegador Safari");
             driver = new SafariDriver();
             driver.manage().window().maximize();
-            driver.get("https://www.saucedemo.com");
 
+            driver.get("https://www.saucedemo.com");
             driver.findElement(By.id("user-name")).sendKeys("standard_user");
             driver.findElement(By.id("password")).sendKeys("secret_sauce");
             driver.findElement(By.id("login-button")).click();
-
             Thread.sleep(2000);
-
-            // Ejecutar los tests anotados con @Test
-            TestNG testng = new TestNG();
-            testng.setTestClasses(new Class[]{TestSafari.class});
-            testng.run();
-
-            System.out.println("Pruebas completadas. El navegador permanece abierto.");
-
-        } catch (Exception e) {
-            System.err.println("Error de ejecución: " + e.getMessage());
-            e.printStackTrace();
         }
     }
     // primer test para verificar que el acceso fue exitoso
 
     @Test
     public void testIngreso() throws InterruptedException {
-        System.out.println("▶️ Test #1: Verificando que el login redirige a inventory.html...");
+        System.out.println("Test #1: Verificando que el login redirige a inventory.html");
 
         try {
             String urlEsperada = "https://www.saucedemo.com/inventory.html";
             String urlActual = driver.getCurrentUrl();
 
             if (urlActual.equals(urlEsperada)) {
-                System.out.println("Test #1: login exitoso. URL correcta: " + urlActual);
+                System.out.println("********Test #1: login exitoso. URL correcta **********" + urlActual);
             } else {
                 System.out.println("Test #1 fallido. URL inesperada:");
                 System.out.println("Esperada: " + urlEsperada);
@@ -72,7 +57,7 @@ public class TestSafari {
     // segundo test para verificar que al seleccionar un producto nos lleva al detalle
     @Test(dependsOnMethods = "testIngreso")
     public void testProducto() throws InterruptedException {
-        System.out.println("▶️ Test #2: Acceder al detalle del producto desde el listado...");
+        System.out.println("Test #2: Acceder al detalle del producto desde el listado...");
 
         // XPath correcto del enlace al producto
         By xpathFleeceItem = By.xpath("//*[@id='item_5_title_link']/div");
@@ -94,7 +79,7 @@ public class TestSafari {
                 && driver.getPageSource().contains("Sauce Labs Fleece Jacket");
 
         assertTrue(redireccion, "No se accedió correctamente a la URL del detalle del producto.\nURL actual: " + actualUrl);
-        System.out.println("Test #2 acceso a detalle del producto exitoso");
+        System.out.println("**********Test #2 acceso a detalle del producto exitoso***********");
     }
 
 // test tres para verificar que se agrega el producto al carrito
@@ -152,7 +137,7 @@ public class TestSafari {
                 System.out.println("Producto en carrito: " + nombreCarrito + " | Precio: " + precioCarrito);
 
                 if (nombreEsperado.equals(nombreCarrito) && precioEsperado.equals(precioCarrito)) {
-                    System.out.println("Test #3: producto correcto en el carrito con el mismo precio");
+                    System.out.println("*********Test #3: producto correcto en el carrito con el mismo precio*********");
                 } else {
                     System.out.println("Test #3 fallido:");
                     System.out.println("   Esperado: " + nombreEsperado + " | Carrito: " + nombreCarrito);
@@ -197,7 +182,7 @@ public class TestSafari {
             boolean camposVisibles = firstName.isDisplayed() && lastName.isDisplayed() && postalCode.isDisplayed();
 
             if (camposVisibles) {
-                System.out.println("Test #4: Todos los campos del formulario de checkout están visibles");
+                System.out.println("********Test #4: Todos los campos del formulario de checkout están visibles********");
             } else {
                 System.out.println("Test #4 fallido: algún campo no está visible");
             }
@@ -208,10 +193,99 @@ public class TestSafari {
         }
     }
 
+    
+    
+    //quinto test realizar el pedido validado con kla información porporcionada
+    
+    @Test(dependsOnMethods = "testCheckoutCampos")
+    public void testCompletarCheckout() throws InterruptedException {
+        System.out.println("Test #5: Completar el formulario y continuar al resumen de compra");
+
+        try {
+            // Se completan los campos con los datos del comprador
+            driver.findElement(By.id("first-name")).sendKeys("Mauricio");
+            driver.findElement(By.id("last-name")).sendKeys("Alvarado");
+            driver.findElement(By.id("postal-code")).sendKeys("10501");
+
+            System.out.println("Campos completados");
+
+            // Hace clic en Continue
+            driver.findElement(By.id("continue")).click();
+            Thread.sleep(2000);
+
+            // verifica que el porceso sea exitoso
+            String urlActual = driver.getCurrentUrl();
+            String urlEsperada = "https://www.saucedemo.com/checkout-step-two.html";
+
+            if (urlActual.equals(urlEsperada)) {
+                System.out.println("Redirigido a la página de resumen de compra");
+            } else {
+                System.out.println("No se redirigió correctamente al resumen. URL actual: " + urlActual);
+            }
+
+            // Valida que el producto esté listado y que exista un total
+            boolean productoPresente = driver.getPageSource().contains("Sauce Labs Fleece Jacket");
+            boolean totalVisible = driver.getPageSource().contains("Total");
+
+            if (productoPresente && totalVisible) {
+                System.out.println("**********Test #5: Producto presente y total visible en el resumen de compra********");
+            } else {
+                System.out.println("Test #5 fallido: faltan elementos en el resumen");
+            }
+
+            assertTrue(urlActual.equals(urlEsperada) && productoPresente && totalVisible,
+                    "No se completó correctamente el formulario o no se accedió al resumen");
+
+        } catch (Exception e) {
+            System.err.println("Test #5 fallido por excepción inesperada");
+            e.printStackTrace();
+            throw e;
+        }
+}
+    
+    //Test 6. verifica que al aceptar la compra la paginarealice el proceso y de el mensaje de transacción exitos
+    @Test(dependsOnMethods = "testCompletarCheckout")
+    public void testFinalizarCompra() throws InterruptedException {
+        System.out.println("Test 6, Finalizar la compra y verificar mensaje de confirmación");
+
+        try {
+            // Paso 1: Clic en el botón "Finish"
+            WebElement finishBtn = driver.findElement(By.id("finish"));
+            finishBtn.click();
+            Thread.sleep(2000);
+            System.out.println("Botón 'Finish' clickeado");
+
+            // Paso 2: Verificar URL
+            String urlActual = driver.getCurrentUrl();
+            String urlEsperada = "https://www.saucedemo.com/checkout-complete.html";
+
+            // Paso 3: Verificar el mensaje de éxito
+            WebElement mensajeConfirmacion = driver.findElement(By.className("complete-header"));
+            String textoConfirmacion = mensajeConfirmacion.getText();
+
+            boolean urlCorrecta = urlActual.equals(urlEsperada);
+            boolean mensajeCorrecto = textoConfirmacion.equalsIgnoreCase("Thank you for your order!");
+
+            if (urlCorrecta && mensajeCorrecto) {
+                System.out.println("*********Test #6: Compra finalizada correctamente y mensaje confirmado*********");
+            } else {
+                System.out.println("Test #6 fallido:");
+                System.out.println("URL actual: " + urlActual);
+                System.out.println("Mensaje recibido: " + textoConfirmacion);
+            }
+
+            assertTrue(urlCorrecta && mensajeCorrecto, "La compra no se finalizó correctamente o el mensaje fue incorrecto.");
+
+        } catch (Exception e) {
+            System.err.println("Test #6 fallido por excepción inesperada");
+            e.printStackTrace();
+            throw e;
+        }
+    }
     @AfterClass
     public void tearDown() {
-        System.out.println("Finalizar pruebas. Safari permanece abierto.");
-        // Si se quiere cerrar el navegador al final:
-        // if (driver != null) driver.quit();
+        System.out.println("Finalizando pruebas. Safari se cerrará .");
+       
+        if (driver != null) driver.quit();
     }
 }
